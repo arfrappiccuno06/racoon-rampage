@@ -10,13 +10,13 @@ from random import random, shuffle
 
 import pygame
 
-from a1_pyta_config import python_ta
+from pyta_config import python_ta
 
 # Turn off check contracts to prevent the UI from being too slow to use.
 # This MUST run before we import our classes.
 python_ta.contracts.ENABLE_CONTRACT_CHECKING = False
 
-import a1
+import game
 
 # Feel free to modify any of these constant values.
 
@@ -78,7 +78,7 @@ class RaccoonRaiders:
     width: int
     height: int
     square_size: int
-    _board: a1.GameBoard
+    _board: game.GameBoard
     _screen: pygame.Surface
     _icon_map: dict[str, pygame.Surface]
     _background_tile: pygame.Surface
@@ -90,7 +90,7 @@ class RaccoonRaiders:
         If board_string is provided, initializes from that layout.
         Otherwise, generates a random board.
         """
-        self._board = a1.GameBoard(w, h)
+        self._board = game.GameBoard(w, h)
 
         if board_string:
             self._board.setup_from_grid(board_string)
@@ -191,7 +191,7 @@ class RaccoonRaiders:
         self.draw()
 
 
-def populate_board(board: a1.GameBoard, num_raccoons: int,
+def populate_board(board: game.GameBoard, num_raccoons: int,
                    num_cans: int, num_bins: int) -> None:
     """Randomly populate the board with characters.
 
@@ -201,12 +201,12 @@ def populate_board(board: a1.GameBoard, num_raccoons: int,
     Precondition:
         - num_raccoons + num_bins + num_cans + 1 <= board size
 
-    >>> b = a1.GameBoard(3, 1)
+    >>> b = game.GameBoard(3, 1)
     >>> populate_board(b,1,0,1)
     >>> str(b) in ['PRB', 'PBR', 'PSB', 'PBS']
     True
     """
-    a1.Player(board, 0, 0)
+    game.Player(board, 0, 0)
 
     availables = []
     for i in range(board.width):
@@ -219,18 +219,18 @@ def populate_board(board: a1.GameBoard, num_raccoons: int,
     for _ in range(num_raccoons):
         x, y = availables.pop()
         if random() <= FRACTION_SMART:
-            a1.SmartRaccoon(board, x, y)
+            game.SmartRaccoon(board, x, y)
         else:
-            a1.Raccoon(board, x, y)
+            game.Raccoon(board, x, y)
 
     for _ in range(num_cans):
         x, y = availables.pop()
         locked = random() <= FRACTION_LOCKED
-        a1.GarbageCan(board, x, y, locked)
+        game.GarbageCan(board, x, y, locked)
 
     for _ in range(num_bins):
         x, y = availables.pop()
-        a1.RecyclingBin(board, x, y)
+        game.RecyclingBin(board, x, y)
 
 
 if __name__ == '__main__':

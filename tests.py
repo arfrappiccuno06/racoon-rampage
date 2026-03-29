@@ -3,7 +3,7 @@
 Unit tests for the Raccoon Rampage game implementation.
 Tests cover board setup, character movement, game mechanics, and scoring.
 """
-from a1 import *
+from game import *
 
 SIMPLE_BOARD_STRING = 'P-B-\n-BRB\n--BB\n-C--'
 
@@ -210,4 +210,4 @@ def test_simple_give_turns() -> None:
 if __name__ == '__main__':
     import pytest
 
-    pytest.main(['a1_starter_tests.py'])
+    pytest.main(['tests.py'])

@@ -13,7 +13,7 @@ pyta_config = {
         "random",
         "__future__",
         "python_ta.contracts",
-        "a1_pyta_config",
+        "pyta_config",
         "math"
     ],
     "disable": [
